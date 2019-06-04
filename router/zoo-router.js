@@ -72,5 +72,21 @@ router.put('/:id', (req, res) => {
   })
 });
 
+router.delete('/:id', (req, res) => {
+  db('zoos')
+  .where({id: req.params.id})
+  .del()
+  .then(count => {
+    if(count > 0) {
+      const unit = count > 1 ? 'records' : 'record';
+      res.status(200).json({ message: '${count} record updated!'})
+    } else {
+      res.status(404).json({ message: 'Role not found'});
+    }
+  }).catch(error => {
+    res.status(500).json(error);
+  })
+});
+
 
 module.exports = router;
