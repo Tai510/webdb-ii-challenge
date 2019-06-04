@@ -12,4 +12,14 @@ const knexConfig = {
 
  const db = knex(knexConfig);
 
+ router.get('/' , (req,res) => {
+  db('zoos')
+  .then(zoo => {
+    res.status(200).json(zoo);
+  })
+  .catch(error => {
+    res.status(500).json(error);
+  })
+ })
+
 module.exports = router;
